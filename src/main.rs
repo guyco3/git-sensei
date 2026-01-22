@@ -46,7 +46,10 @@ fn main() {
 
             match llm::client::generate_suggestion(&cfg, &prefix_str) {
                 Ok(suggestion) => println!("{}", suggestion),
-                Err(_) => std::process::exit(0),
+                Err(e) => {
+                    util::log_error(&format!("AI Error: {}", e));
+                    std::process::exit(1);
+                }
             }
         }
         Commands::Init => {
@@ -72,3 +75,4 @@ fn main() {
         }
     }
 }
+// test change

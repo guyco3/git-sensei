@@ -16,7 +16,7 @@ impl Default for Config {
         Self {
             model: "llama3.2:1b".into(),
             endpoint: "http://localhost:11434/api/generate".into(),
-            timeout_ms: 500,
+            timeout_ms: 3000,
             aggressive_minification: true,
             system_prompt: "You are a git commit assistant. Use Conventional Commits. Imperative mood. Max 72 chars. Return ONLY the message.".into(),
         }

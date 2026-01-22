@@ -1,5 +1,4 @@
 # 👺 GitSensei
-
 **GitSensei** is a high-performance, local-first CLI tool that provides **sub-300ms** inline autocomplete for Git commit messages. 
 
 It uses a local LLM (Llama 3.2 1B) to analyze your staged changes, applies an **aggressive minification bundler** to stay within context limits, and integrates directly into your shell completion.
