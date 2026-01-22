@@ -26,9 +26,10 @@ pub fn generate_suggestion(cfg: &Config, prefix: &str) -> Result<String, Box<dyn
         "prompt": &final_prompt,
         "stream": false,
         "options": {
-            "num_predict": 32, // Small prediction = much faster response
-            "temperature": 0.1, // Low temp = more consistent commits
-            "stop": ["\n", "Assistant:", "User:"]
+            "num_predict": 24, // Shortened even more for instant feels
+            "temperature": 0.1,
+            "top_k": 20,       // Narrower search is faster
+            "stop": ["\n", "\"", "###"]
         }
     });
 
