@@ -25,7 +25,7 @@ pub fn generate_suggestion(cfg: &Config, prefix: &str) -> Result<String, Box<dyn
         "options": {
             "num_predict": 32,
             "temperature": 0.1,
-            "stop": ["\n", "###"]
+            "stop": ["\n", "###", "\"", "Completion:"] // Added \" and Completion:
         }
     });
 
@@ -44,19 +44,18 @@ pub fn generate_suggestion(cfg: &Config, prefix: &str) -> Result<String, Box<dyn
         return Err("Ollama returned a blank response field.".into());
     }
 
-    // --- NEW SMART CLEANUP ---
+    // --- FINAL SMART CLEANUP ---
     let mut cleaned = text
-        .replace("git commit -m", "")
         .trim_matches(|c| c == '"' || c == '\'' || c == '`')
         .trim()
         .to_string();
 
-    // Only strip the prefix if there is actually content AFTER the prefix
-    if !prefix.is_empty() && cleaned.to_lowercase().starts_with(&prefix.to_lowercase()) {
-        let potential_new = cleaned[prefix.len()..].trim().to_string();
-        if !potential_new.is_empty() {
-            cleaned = potential_new;
-        }
+    // If prefix is "feat: ", and AI returned "feat: add stuff", strip "feat: "
+    let p_low = prefix.to_lowercase();
+    let c_low = cleaned.to_lowercase();
+    
+    if !prefix.is_empty() && c_low.starts_with(&p_low) {
+        cleaned = cleaned[prefix.len()..].trim().to_string();
     }
 
     Ok(cleaned)
