@@ -25,7 +25,7 @@ pub fn generate_suggestion(cfg: &Config, prefix: &str) -> Result<String, Box<dyn
         "options": {
             "num_predict": 32,
             "temperature": 0.1,
-            "stop": ["\n", "###", "\"", "Completion:"] // Added \" and Completion:
+            // "stop": ["\n", "###", "\"", "Completion:"] // Added \" and Completion:
         }
     });
 

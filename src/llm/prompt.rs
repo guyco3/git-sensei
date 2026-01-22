@@ -1,21 +1,12 @@
-pub fn build_prompt(system_prompt: &str, files: &[String], diff: &str, prefix: &str) -> String {
+pub fn build_prompt(_system_prompt: &str, files: &[String], diff: &str, prefix: &str) -> String {
     format!(
-        "{}
-Examples:
-Diff: + added login logic
-Completion: feat: implement user login
-Diff: - fixed typo in header
-Completion: fix: correct spelling error in header
-
-Context:
+        "Task: Write a tiny git commit message.
+Constraint: Return ONLY the message. No intro. No explanation.
 Files: {}
 Diff:
 {}
 
-Task: Complete the commit message. 
-Current: \"{}\"
-Completion:",
-        system_prompt,
+Commit Message: {}",
         files.join(", "),
         diff,
         prefix
