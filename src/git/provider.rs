@@ -8,7 +8,6 @@ pub fn get_staged_diff() -> String {
     
     let result = String::from_utf8_lossy(&output.stdout).to_string();
     
-    // DEBUG PRINT (only while we fix this)
     if result.is_empty() {
         eprintln!("DEBUG: Git returned an empty diff!");
     }

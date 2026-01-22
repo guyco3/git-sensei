@@ -2,24 +2,27 @@ pub fn build_prompt(system_prompt: &str, files: &[String], diff: &str, prefix: &
     format!(
 r#"<|system|>
 {system_prompt}
-RULES:
-- Focus ONLY on the code in the DIFF.
-- Use imperative mood (e.g., "fix", "add", "refactor").
-- Do not repeat the prefix.
-- Output ONLY the completion text.
+CRITICAL: 
+- Lines starting with '-' were DELETED.
+- Lines starting with '+' were ADDED.
+- Focus on the ACTION (e.g., "remove", "add", "refactor").
 
 <|user|>
-Example 1:
-Files: src/math.rs
-Diff: + return a + b;
-Message: feat: implement addition logic
+### Example Deletion:
+Diff: 
+---
+- println!("debug logs");
+---
+Message: chore: remove debug logging
 
-Example 2:
-Files: .gitignore
-Diff: + target/
-Message: chore: ignore build artifacts
+### Example Addition:
+Diff: 
+---
++ use std::time::Duration;
+---
+Message: chore: import Duration for timeouts
 
-Current Task:
+### Actual Task:
 Files: {files}
 Diff: 
 ---
