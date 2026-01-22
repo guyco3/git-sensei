@@ -8,6 +8,7 @@ pub struct Config {
     pub endpoint: String,
     pub timeout_ms: u64,
     pub aggressive_minification: bool,
+    pub system_prompt: String, // Added this field
 }
 
 impl Default for Config {
@@ -17,6 +18,7 @@ impl Default for Config {
             endpoint: "http://localhost:11434/api/generate".into(),
             timeout_ms: 500,
             aggressive_minification: true,
+            system_prompt: "You are a git commit assistant. Use Conventional Commits. Imperative mood. Max 72 chars. Return ONLY the message.".into(),
         }
     }
 }

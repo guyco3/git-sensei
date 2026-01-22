@@ -6,6 +6,7 @@ mod util;
 
 use clap::{Parser, Subcommand};
 use std::process;
+use colored::Colorize;
 
 #[derive(Parser)]
 #[command(name = "gitsensei", about = "AI-powered git commit autocompletion", version)]
