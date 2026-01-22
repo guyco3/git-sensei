@@ -23,11 +23,12 @@ enum Commands {
     Suggest { prefix: Option<String> },
     Init,
     Hook { shell: String },
+    Config, // Add this
 }
 
 fn main() {
     let cli = Cli::parse();
-    let cfg = config::Config::load().unwrap_or_default();
+    let cfg = config::Config::load(); // Removed .unwrap_or_default()
 
     match cli.command {
         Commands::Suggest { prefix } => {
@@ -57,6 +58,17 @@ fn main() {
         }
         Commands::Hook { shell } => {
             shell::install::print_hook(&shell);
+        }
+        Commands::Config => {
+            let path = config::Config::get_path();
+            util::log_info(&format!("Config path: {}", path.display()));
+            
+            // Check if it exists
+            if path.exists() {
+                util::log_success("Config file is present.");
+            } else {
+                util::log_error("Config file is missing!");
+            }
         }
     }
 }

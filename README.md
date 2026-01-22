@@ -27,6 +27,9 @@ If you want to build from source or contribute to the project:
 
 - **Rust:** Install Rust (1.75+)
 - **Ollama:** Download Ollama and ensure it's running.
+```sh
+brew install --cask ollama
+```
 
 ### Setup
 
