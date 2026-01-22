@@ -49,8 +49,8 @@ pub fn generate_suggestion(cfg: &Config, prefix: &str) -> Result<String, Box<dyn
 
     // If prefix is "fix(ui): ", and AI says "fix(ui): resolve button alignment"
     // we only want to return "resolve button alignment" so the hook can append it.
-    if !prefix.is_empty() && cleaned.starts_with(prefix) {
-        cleaned = cleaned[prefix.len()..].to_string();
+    if !prefix.is_empty() && cleaned.to_lowercase().starts_with(&prefix.to_lowercase()) {
+        cleaned = cleaned[prefix.len()..].trim().to_string();
     }
 
     Ok(cleaned.trim().to_string())
