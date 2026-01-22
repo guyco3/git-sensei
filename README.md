@@ -72,5 +72,3 @@ aggressive_minification = true
 ## 🔒 Privacy
 
 GitSensei is 100% local. Your code never leaves your machine. It travels from your Git index to your local Ollama instance and nowhere else.
-
-note: this is the end
