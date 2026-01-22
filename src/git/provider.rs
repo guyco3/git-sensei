@@ -2,11 +2,18 @@ use std::process::Command;
 
 pub fn get_staged_diff() -> String {
     let output = Command::new("git")
-        .args(["diff", "--cached", "-U0", "--minimal"])
+        .args(["diff", "--cached", "--no-color"])
         .output()
-        .expect("Git diff failed");
+        .expect("Failed to execute git diff");
     
-    String::from_utf8_lossy(&output.stdout).to_string()
+    let result = String::from_utf8_lossy(&output.stdout).to_string();
+    
+    // DEBUG PRINT (only while we fix this)
+    if result.is_empty() {
+        eprintln!("DEBUG: Git returned an empty diff!");
+    }
+    
+    result
 }
 
 pub fn get_staged_files() -> Vec<String> {

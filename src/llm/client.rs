@@ -5,6 +5,11 @@ use std::time::Duration;
 
 pub fn generate_suggestion(cfg: &Config, prefix: &str) -> Result<String, Box<dyn std::error::Error>> {
     let raw_diff = git::provider::get_staged_diff();
+
+    if raw_diff.trim().is_empty() {
+        return Ok("No staged changes found.".to_string());
+    }
+    
     let files = git::provider::get_staged_files();
     let bundled = git::bundler::bundle_diff(&raw_diff, cfg.aggressive_minification);
     
