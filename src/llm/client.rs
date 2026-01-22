@@ -25,9 +25,9 @@ pub fn generate_suggestion(cfg: &Config, prefix: &str) -> Result<String, Box<dyn
         "prompt": &final_prompt,
         "stream": false,
         "options": {
-            "num_predict": 100,   // More room to be descriptive
-            "temperature": 0.1,  // Higher = less repetitive
-            "top_k": 10,        // Helps with diversity
+            "num_predict": 100,   
+            "temperature": 0.1,  
+            "top_k": 10,        
             "num_keep": 0,
         }
     });
