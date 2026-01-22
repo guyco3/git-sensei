@@ -1,4 +1,4 @@
 pub fn bundle_diff(raw_diff: &str, _aggressive: bool) -> String {
-    // Pass-through for now to ensure AI gets full context
+    // For now, we just return the raw diff.
     raw_diff.to_string()
 }
