@@ -3,33 +3,29 @@ pub fn build_prompt(system_prompt: &str, files: &[String], diff: &str, prefix: &
 r#"<|system|>
 {system_prompt}
 RULES:
-- Use imperative mood ("add", not "added").
-- Refer to specific lines in the diff (e.g., "contributing doc").
-- Do NOT repeat the prefix if it's already provided.
-- Do NOT provide explanations, intros, or markdown blocks.
-- STOP immediately after completing the sentence.
+- Focus ONLY on the code in the DIFF.
+- Use imperative mood (e.g., "fix", "add", "refactor").
+- Do not repeat the prefix.
+- Output ONLY the completion text.
 
 <|user|>
-### Examples for Style:
-Files: README.md
-Diff: + to contribute, look at the contributing doc!
-Message: docs: add link to contributing guide in README
+Example 1:
+Files: src/math.rs
+Diff: + return a + b;
+Message: feat: implement addition logic
 
-Files: Cargo.toml
-Diff: - version = "0.1.0" 
-      + version = "0.1.1"
-Message: chore: bump version to 0.1.1
+Example 2:
+Files: .gitignore
+Diff: + target/
+Message: chore: ignore build artifacts
 
-### Task:
+Current Task:
 Files: {files}
 Diff: 
 ---
 {diff}
 ---
-
-### Expected Output:
-Complete the message starting with: "{prefix}"
-Completion: {prefix}"#,
+Complete the message: {prefix}"#,
         system_prompt = system_prompt,
         files = files.join(", "),
         diff = diff,

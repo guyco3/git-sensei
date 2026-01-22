@@ -5,6 +5,8 @@ use std::time::Duration;
 
 pub fn generate_suggestion(cfg: &Config, prefix: &str) -> Result<String, Box<dyn std::error::Error>> {
     let raw_diff = git::provider::get_staged_diff();
+
+    // since nothing to suggest on, return early
     if raw_diff.trim().is_empty() {
         return Ok("No staged changes found.".to_string());
     }
