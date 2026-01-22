@@ -1,14 +1,20 @@
-pub fn build_prompt(_system_prompt: &str, files: &[String], diff: &str, prefix: &str) -> String {
+pub fn build_prompt(_system: &str, files: &[String], diff: &str, prefix: &str) -> String {
     format!(
-        "Task: Write a tiny git commit message.
-Constraint: Return ONLY the message. No intro. No explanation.
-Files: {}
-Diff:
-{}
+        "USER: You are a professional developer.
+TASK: Write a highly specific git commit message based on the DIFF below.
+FILES: {files}
+DIFF:
+{diff}
 
-Commit Message: {}",
-        files.join(", "),
-        diff,
-        prefix
+RULES:
+1. Focus on the ACTUAL content added or removed.
+2. If a specific line like 'contribute docs' was added, mention it.
+3. Use Conventional Commits (feat:, fix:, docs:, style:, refactor:).
+4. Be concise but descriptive.
+
+MESSAGE START: {prefix}",
+        files = files.join(", "),
+        diff = diff,
+        prefix = prefix
     )
 }
